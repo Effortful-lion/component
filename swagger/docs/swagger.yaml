@@ -1,0 +1,144 @@
+basePath: /api/v1
+definitions:
+  main.RequestParam:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: 李四
+        type: string
+    type: object
+  main.RequestParam2:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      updatepassword:
+        example: "789100"
+        type: string
+      updateusername:
+        example: 张三
+        type: string
+      username:
+        example: 李四
+        type: string
+    type: object
+  main.ResponseParam:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/main.User'
+      message:
+        type: string
+    type: object
+  main.User:
+    properties:
+      password:
+        example: "123456"
+        type: string
+      username:
+        example: 张三
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact:
+    email: 维护者邮件
+    name: 维护者名字
+    url: http://www.swagger.io/support
+  description: 这里是swagger中整个项目的描述
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.swagger.io/terms/
+  version: 版本(默认1.0)
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: 用户信息
+        in: body
+        name: Object
+        required: true
+        schema:
+          $ref: '#/definitions/main.RequestParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.ResponseParam'
+        "400":
+          description: '{"msg": "failed"}'
+          schema:
+            type: string
+      summary: 测试login
+      tags:
+      - 测试2
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: ping
+      responses:
+        "200":
+          description: '{"msg": "pong"}'
+          schema:
+            type: string
+        "400":
+          description: '{"msg": "nonono"}'
+          schema:
+            type: string
+      summary: 测试ping
+      tags:
+      - 测试1
+  /update:
+    put:
+      consumes:
+      - application/json
+      description: update
+      parameters:
+      - description: 用户更新后信息
+        in: body
+        name: Object
+        required: true
+        schema:
+          $ref: '#/definitions/main.RequestParam2'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.ResponseParam'
+        "400":
+          description: '{"msg": "failed"}'
+          schema:
+            type: string
+      summary: 更新用户信息
+      tags:
+      - 测试4
+  /user:
+    delete:
+      consumes:
+      - application/json
+      description: deleteuser
+      parameters:
+      - description: 用户id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: 删除用户
+      tags:
+      - 测试3
+swagger: "2.0"
